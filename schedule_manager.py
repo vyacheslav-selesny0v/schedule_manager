@@ -30,13 +30,27 @@ class Notification:
         status: Статус уведомления
     '''
 
-    def __init__(self, user_id: str, message: str, scheduled_time: str):
+    def __init__(self, user_id: str, message: str, scheduled_time: str, priority: str = 'normal'):
         self.user_id = user_id
         self.message = message
         self.scheduled_time = self.parse_datetime(scheduled_time)
         self.created_at = datetime.now()
         self.status = 'pending'
+        self.priority = self.validate_priority(priority)
         self.validate()
+
+
+    def validate_priority(self, priority: str) -> str:
+
+        '''Валидация приоритета.'''
+
+        valid_priorities = ['high', 'normal', 'low']
+        priority_lower = priority.lower()
+        
+        if priority_lower not in valid_priorities:
+            raise ValueError(f"Приоритет должен быть одним из: {valid_priorities}")
+        
+        return priority_lower
 
     
     def parse_datetime(self, datetime_str: str) -> datetime:
