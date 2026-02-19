@@ -141,10 +141,6 @@ class Scheduler:
         return sent_count
 
 
-    def send_notification(self, notification: dict) -> None:
-        pass
-
-
 if __name__ == '__main__':
     scheduler = Scheduler()
 
